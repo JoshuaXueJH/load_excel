@@ -5,6 +5,32 @@ import java.util.Set;
 
 public class AddNum {
 
+    public static ListNode addTwoNumbers1(ListNode l1, ListNode l2) {
+        ListNode res = new ListNode(0);
+        boolean carry = false;
+
+        ListNode sum = res;
+        while(l1 != null && l2 != null){
+            int partialSum = l1.val + l2.val + (carry ? 1 : 0);
+            carry = partialSum >= 10 ? true : false;
+            sum.next = new ListNode(carry ? partialSum % 10 : partialSum);
+            sum = sum.next;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        while(l1 != null){
+            sum.next = new ListNode(l1.val + (carry ? 1 : 0));
+            sum = sum.next;
+            carry = false;
+        }
+        while(l2 != null){
+            sum.next = new ListNode(l2.val + (carry ? 1 : 0));
+            sum = sum.next;
+            carry = false;
+        }
+        return sum.next;
+    }
+
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         if (l1 == null || l2 == null) return null;
 
